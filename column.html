@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コラム | ASTROLOG</title>
+<meta name="description" content="宇宙をテーマにした漫画・イラスト・4コマと、小論文形式のコラム記事。">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
+
+:root {
+  --bg: #0b1a42;
+  --bg-deep: #081433;
+  --panel: #12295e;
+  --panel-line: #2d4a8a;
+  --blue: #0b3d91;
+  --blue-light: #3f7fd6;
+  --red: #fc3d21;
+  --white: #f4f7fb;
+  --muted: #7f9dc6;
+  --gold: #fdb813;
+  --orange: #ff6b35;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+/* ---------- starfield ---------- */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--bg-deep);
+}
+
+.starfield::before,
+.starfield::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,.9), transparent),
+    radial-gradient(1.3px 1.3px at 90px 120px, rgba(143,199,255,.9), transparent),
+    radial-gradient(1.8px 1.8px at 160px 60px, rgba(253,184,19,.9), transparent),
+    radial-gradient(1.3px 1.3px at 230px 180px, rgba(255,255,255,.75), transparent),
+    radial-gradient(1.8px 1.8px at 300px 40px, rgba(252,61,33,.8), transparent),
+    radial-gradient(1.3px 1.3px at 40px 220px, rgba(190,160,255,.8), transparent),
+    radial-gradient(1.8px 1.8px at 340px 260px, rgba(143,199,255,.85), transparent),
+    radial-gradient(1.3px 1.3px at 120px 260px, rgba(255,255,255,.65), transparent),
+    radial-gradient(1.5px 1.5px at 270px 130px, rgba(253,184,19,.75), transparent),
+    radial-gradient(1.2px 1.2px at 10px 150px, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 200px 10px, rgba(252,61,33,.65), transparent),
+    radial-gradient(1.2px 1.2px at 350px 150px, rgba(190,160,255,.7), transparent),
+    radial-gradient(1.4px 1.4px at 60px 280px, rgba(143,199,255,.7), transparent),
+    radial-gradient(1.6px 1.6px at 250px 250px, rgba(253,184,19,.65), transparent),
+    radial-gradient(1.2px 1.2px at 140px 30px, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.4px 1.4px at 310px 190px, rgba(255,255,255,.7), transparent);
+  background-repeat: repeat;
+  background-size: 280px 220px;
+  opacity: .95;
+}
+.starfield::after {
+  background-image:
+    radial-gradient(1.4px 1.4px at 50px 80px, rgba(255,255,255,.75), transparent),
+    radial-gradient(1.6px 1.6px at 180px 40px, rgba(252,61,33,.65), transparent),
+    radial-gradient(1.2px 1.2px at 260px 200px, rgba(143,199,255,.7), transparent),
+    radial-gradient(1.6px 1.6px at 340px 100px, rgba(253,184,19,.65), transparent),
+    radial-gradient(1.2px 1.2px at 90px 260px, rgba(190,160,255,.65), transparent),
+    radial-gradient(1.4px 1.4px at 400px 300px, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.3px 1.3px at 150px 350px, rgba(143,199,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 20px 380px, rgba(253,184,19,.55), transparent),
+    radial-gradient(1.3px 1.3px at 450px 60px, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.4px 1.4px at 230px 300px, rgba(252,61,33,.55), transparent);
+  background-size: 480px 400px;
+  background-position: 60px 90px;
+  opacity: .65;
+}
+
+/* ---------- background planets ---------- */
+.bg-planets {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.planet {
+  position: absolute;
+  opacity: .4;
+}
+
+.planet.jupiter {
+  width: 110px;
+  top: 10%;
+  right: 6%;
+}
+
+.planet.saturn {
+  width: 150px;
+  bottom: 12%;
+  right: -2%;
+  opacity: .3;
+}
+
+.planet.mercury {
+  width: 46px;
+  top: 62%;
+  left: 5%;
+  opacity: .45;
+}
+
+@media (max-width: 860px) {
+  .planet.jupiter { width: 70px; top: 4%; right: 3%; }
+  .planet.saturn { width: 100px; bottom: 6%; right: -4%; }
+  .planet.mercury { width: 34px; top: 55%; left: 3%; }
+}
+
+/* ---------- layout shell ---------- */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+header.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+
+.brand .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px 2px rgba(252,61,33,.6);
+}
+
+nav.site-nav {
+  display: flex;
+  gap: 28px;
+  font-size: .92rem;
+}
+
+nav.site-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 4px;
+  transition: color .2s, border-color .2s;
+}
+nav.site-nav a:hover { color: var(--white); border-color: var(--red); }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 28px 90px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  overflow: visible;
+}
+
+.hero-copy .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+  border: 1px solid var(--panel-line);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+.hero-copy .eyebrow::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold);
+}
+
+.hero-copy h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  margin: 0 0 6px;
+}
+.hero-copy h1 .accent { color: var(--red); }
+
+.hero-copy .jp-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--blue-light);
+  margin: 0 0 22px;
+}
+
+.hero-copy p {
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 46ch;
+  margin: 0 0 30px;
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .92rem;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 6px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 0 8px 20px -8px rgba(252,61,33,.7);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--panel-line);
+}
+.btn:hover { transform: translateY(-2px); }
+
+/* ---------- sun + orbit emblem ---------- */
+.emblem {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.emblem svg { width: 100%; height: 100%; display: block; }
+
+.orbit-ring {
+  fill: none;
+  stroke: var(--panel-line);
+  stroke-width: 1;
+}
+.orbit-ring.blue { stroke: var(--blue-light); stroke-dasharray: 2 6; opacity: .8; }
+.orbit-ring.red { stroke: var(--red); stroke-dasharray: 1 5; opacity: .55; }
+
+.orbit-group {
+  transform-origin: 210px 210px;
+  animation: spin 60s linear infinite;
+}
+.orbit-group.reverse {
+  animation-duration: 90s;
+  animation-direction: reverse;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.corona {
+  transform-origin: 210px 210px;
+  animation: spin 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-group, .corona { animation: none; }
+}
+
+/* ---------- nav cards ---------- */
+.section-label {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  letter-spacing: .06em;
+  color: var(--red);
+  margin: 0 0 8px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin: 0 0 36px;
+}
+
+.cards {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 10px 28px 100px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  padding: 28px 24px 26px;
+  text-decoration: none;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: var(--red); transform: translateY(-4px); }
+
+.card .icon { width: 40px; height: 40px; color: var(--blue-light); }
+.card:hover .icon { color: var(--red); }
+
+.card .tag {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+.card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: .92rem;
+  margin: 0;
+}
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--panel-line);
+  padding: 50px 28px 40px;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 50px;
+}
+
+.footer-inner.single {
+  grid-template-columns: 1fr;
+  max-width: 480px;
+}
+
+.footer-contact h4,
+.footer-meta h4 {
+  font-family: var(--font-display);
+  font-size: .95rem;
+  letter-spacing: .04em;
+  margin: 0 0 16px;
+  color: var(--muted);
+}
+
+.footer-contact form { display: flex; flex-direction: column; gap: 12px; max-width: 420px; }
+
+.footer-contact input,
+.footer-contact textarea {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 6px;
+  padding: 11px 13px;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: .9rem;
+}
+.footer-contact textarea { resize: vertical; min-height: 90px; }
+
+.footer-contact button {
+  align-self: flex-start;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 11px 20px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s;
+}
+.footer-contact button:hover { background: var(--blue-light); }
+
+.footer-meta p {
+  color: var(--muted);
+  font-size: .85rem;
+  margin: 0 0 12px;
+}
+
+.footer-meta a.hub-link {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red);
+  padding-bottom: 2px;
+}
+
+.footer-bottom {
+  max-width: 1080px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--panel-line);
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding-top: 10px; }
+  .hero-copy { order: 2; }
+  .emblem { order: 1; max-width: 300px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  nav.site-nav { gap: 16px; font-size: .85rem; }
+}
+
+/* ---------- page header (blog / column / about) ---------- */
+.page-header {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 50px 28px 20px;
+}
+
+.page-header .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+  border: 1px solid var(--panel-line);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+.page-header .eyebrow::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red);
+}
+
+.page-header h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  margin: 0 0 10px;
+}
+
+.page-header p {
+  color: var(--muted);
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* ---------- blog: timeline ---------- */
+.timeline {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 28px 100px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 30px;
+  bottom: 60px;
+  width: 1px;
+  background: var(--panel-line);
+}
+
+.log-entry {
+  position: relative;
+  padding: 0 0 30px 56px;
+}
+
+.log-entry::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 6px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--red);
+}
+
+.log-date {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  letter-spacing: .04em;
+  color: var(--blue-light);
+  margin: 0 0 6px;
+}
+
+.log-text {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 0;
+  color: var(--white);
+  font-size: .96rem;
+}
+
+/* ---------- column: article cards ---------- */
+.column-grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 28px 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px;
+}
+
+.column-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  transition: border-color .2s, transform .2s;
+}
+.column-card:hover { border-color: var(--red); transform: translateY(-4px); }
+
+.column-card .thumb {
+  aspect-ratio: 16 / 10;
+  background:
+    linear-gradient(135deg, rgba(11,61,145,.35), rgba(252,61,33,.25)),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 2px, transparent 2px 14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.column-card .body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+
+.column-card .kind {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  color: var(--red);
+}
+
+.column-card h3 { font-family: var(--font-display); font-size: 1.1rem; margin: 0; }
+.column-card p { color: var(--muted); font-size: .9rem; margin: 0; }
+
+.column-card .meta {
+  margin-top: 6px;
+  font-size: .78rem;
+  color: var(--muted);
+  font-family: var(--font-display);
+  letter-spacing: .02em;
+}
+
+@media (max-width: 720px) {
+  .column-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- about ---------- */
+.about-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 28px 100px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 44px;
+}
+
+.crew-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 12px;
+  padding: 26px 22px;
+  text-align: center;
+  height: fit-content;
+}
+
+.crew-card .patch {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff8b5c, #fc3d21 60%, #0b3d91 100%);
+  border: 3px solid var(--panel-line);
+}
+
+.crew-card .name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0 0 4px;
+}
+
+.crew-card .role {
+  color: var(--muted);
+  font-size: .82rem;
+  margin: 0 0 18px;
+}
+
+.crew-card dl {
+  text-align: left;
+  margin: 0;
+  font-size: .85rem;
+}
+.crew-card dt {
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  margin-top: 12px;
+}
+.crew-card dd { margin: 3px 0 0; }
+
+.about-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin: 0 0 14px;
+}
+.about-body p {
+  color: var(--muted);
+  margin: 0 0 22px;
+}
+.about-body ul {
+  color: var(--muted);
+  padding-left: 20px;
+  margin: 0 0 22px;
+}
+.about-body li { margin-bottom: 8px; }
+
+@media (max-width: 720px) {
+  .about-wrap { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="starfield" aria-hidden="true"></div>
+
+<div class="bg-planets" aria-hidden="true">
+  <svg class="planet jupiter" viewBox="0 0 100 100">
+    <defs>
+      <radialGradient id="jupiterBody" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#f3d9b1"/>
+        <stop offset="55%" stop-color="#d9a066"/>
+        <stop offset="100%" stop-color="#a9713f"/>
+      </radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="46" fill="url(#jupiterBody)"/>
+    <path d="M6 34 A46 46 0 0 0 6 66 Z" fill="#0000" />
+    <ellipse cx="50" cy="26" rx="46" ry="7" fill="#c98a52" opacity=".55"/>
+    <ellipse cx="50" cy="40" rx="46" ry="5" fill="#e9c491" opacity=".5"/>
+    <ellipse cx="50" cy="52" rx="46" ry="6" fill="#b97a45" opacity=".55"/>
+    <ellipse cx="50" cy="66" rx="46" ry="5" fill="#e2b884" opacity=".5"/>
+    <ellipse cx="50" cy="78" rx="46" ry="6" fill="#c98a52" opacity=".5"/>
+    <ellipse cx="62" cy="58" rx="10" ry="6" fill="#b6512f" opacity=".8"/>
+  </svg>
+
+  <svg class="planet saturn" viewBox="0 0 140 100">
+    <defs>
+      <radialGradient id="saturnBody" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#f5e6c8"/>
+        <stop offset="60%" stop-color="#dcc190"/>
+        <stop offset="100%" stop-color="#b0925f"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="70" cy="50" rx="66" ry="20" fill="none" stroke="#8ea9d9" stroke-width="4" opacity=".6"/>
+    <ellipse cx="70" cy="50" rx="66" ry="20" fill="none" stroke="#3d5fd9" stroke-width="1.5" opacity=".5"/>
+    <circle cx="70" cy="50" r="34" fill="url(#saturnBody)"/>
+  </svg>
+
+  <svg class="planet mercury" viewBox="0 0 60 60">
+    <defs>
+      <radialGradient id="mercuryBody" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#d8d3ce"/>
+        <stop offset="60%" stop-color="#a6a09a"/>
+        <stop offset="100%" stop-color="#726c67"/>
+      </radialGradient>
+    </defs>
+    <circle cx="30" cy="30" r="27" fill="url(#mercuryBody)"/>
+    <circle cx="20" cy="22" r="4.5" fill="#8a8480" opacity=".7"/>
+    <circle cx="36" cy="18" r="3" fill="#8a8480" opacity=".6"/>
+    <circle cx="38" cy="38" r="6" fill="#8a8480" opacity=".65"/>
+    <circle cx="18" cy="40" r="3.2" fill="#8a8480" opacity=".55"/>
+  </svg>
+</div>
+
+<header class="site-header">
+  <a href="index.html" class="brand">
+    <span class="dot"></span>
+    ASTROLOG
+  </a>
+  <nav class="site-nav">
+    <a href="index.html">HOME</a>
+    <a href="blog.html">観測日誌</a>
+    <a href="column.html">コラム</a>
+    <a href="about.html">乗組員</a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <span class="eyebrow">COLUMN</span>
+  <h1>コラム</h1>
+  <p>宇宙にまつわる漫画・イラスト・4コマと、学んだことをもう少し掘り下げて書いた軽いコラム記事です。</p>
+</div>
+
+<div class="column-grid">
+
+  <a href="#" class="column-card">
+    <div class="thumb">4-KOMA</div>
+    <div class="body">
+      <span class="kind">4コマ漫画</span>
+      <h3>光年ってどれくらい?</h3>
+      <p>「光年」を距離だと知らずに時間だと思っていた話を4コマに。</p>
+      <span class="meta">2026.09.06</span>
+    </div>
+  </a>
+
+  <a href="#" class="column-card">
+    <div class="thumb">COLUMN</div>
+    <div class="body">
+      <span class="kind">小論文</span>
+      <h3>なぜ夜空は暗いのか — オルバースのパラドックス</h3>
+      <p>宇宙が無限に星で満ちているなら、夜空は真っ暗にならないはず。この矛盾から宇宙の有限性を考える。</p>
+      <span class="meta">2026.09.04</span>
+    </div>
+  </a>
+
+  <a href="#" class="column-card">
+    <div class="thumb">ILLUST</div>
+    <div class="body">
+      <span class="kind">イラスト</span>
+      <h3>太陽系スケール比較</h3>
+      <p>惑星の大きさを実際の比率で並べてみたイラスト。地球の小ささに毎回驚く。</p>
+      <span class="meta">2026.08.29</span>
+    </div>
+  </a>
+
+  <a href="#" class="column-card">
+    <div class="thumb">COLUMN</div>
+    <div class="body">
+      <span class="kind">小論文</span>
+      <h3>フェルミのパラドックスと、静かな宇宙</h3>
+      <p>これだけ広い宇宙に知的生命体がいないはずがないのに、なぜ誰にも出会わないのか。</p>
+      <span class="meta">2026.08.24</span>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <div class="footer-inner single">
+    <div class="footer-meta">
+      <h4>NOTICE</h4>
+      <p>本サイトのすべてのテキスト・画像・イラストは、AIの学習データとしての使用を禁止します。</p>
+      <a class="hub-link" href="#">Azalea Creative Room へ戻る</a>
+      <p style="margin-top:14px;">お問い合わせは <a href="about.html" style="color:var(--white); border-bottom:1px solid var(--red);">乗組員プロフィール</a> ページのフォームから。</p>
+    </div>
+  </div>
+  <div class="footer-bottom wrap">
+    &copy; 2026 ASTROLOG — 宇宙観測ノート
+  </div>
+</footer>
+
+</body>
+</html>
