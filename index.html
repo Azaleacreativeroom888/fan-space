@@ -9,10 +9,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
 
 :root {
-  --bg: #0033ff;
-  --bg-deep: #0027cc;
-  --panel: #001a66;
-  --panel-line: #3d5fd9;
+  --bg: #0b1a42;
+  --bg-deep: #081433;
+  --panel: #12295e;
+  --panel-line: #2d4a8a;
   --blue: #0b3d91;
   --blue-light: #3f7fd6;
   --red: #fc3d21;
@@ -54,21 +54,81 @@ a { color: inherit; }
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,.55), transparent),
-    radial-gradient(1px 1px at 90px 120px, rgba(255,255,255,.4), transparent),
-    radial-gradient(1.5px 1.5px at 160px 60px, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 230px 180px, rgba(255,255,255,.35), transparent),
-    radial-gradient(1.5px 1.5px at 300px 40px, rgba(255,255,255,.45), transparent),
-    radial-gradient(1px 1px at 40px 220px, rgba(255,255,255,.3), transparent),
-    radial-gradient(1.5px 1.5px at 340px 260px, rgba(255,255,255,.5), transparent);
+    radial-gradient(1.6px 1.6px at 20px 30px, rgba(255,255,255,.9), transparent),
+    radial-gradient(1.3px 1.3px at 90px 120px, rgba(143,199,255,.9), transparent),
+    radial-gradient(1.8px 1.8px at 160px 60px, rgba(253,184,19,.9), transparent),
+    radial-gradient(1.3px 1.3px at 230px 180px, rgba(255,255,255,.75), transparent),
+    radial-gradient(1.8px 1.8px at 300px 40px, rgba(252,61,33,.8), transparent),
+    radial-gradient(1.3px 1.3px at 40px 220px, rgba(190,160,255,.8), transparent),
+    radial-gradient(1.8px 1.8px at 340px 260px, rgba(143,199,255,.85), transparent),
+    radial-gradient(1.3px 1.3px at 120px 260px, rgba(255,255,255,.65), transparent),
+    radial-gradient(1.5px 1.5px at 270px 130px, rgba(253,184,19,.75), transparent),
+    radial-gradient(1.2px 1.2px at 10px 150px, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 200px 10px, rgba(252,61,33,.65), transparent),
+    radial-gradient(1.2px 1.2px at 350px 150px, rgba(190,160,255,.7), transparent),
+    radial-gradient(1.4px 1.4px at 60px 280px, rgba(143,199,255,.7), transparent),
+    radial-gradient(1.6px 1.6px at 250px 250px, rgba(253,184,19,.65), transparent),
+    radial-gradient(1.2px 1.2px at 140px 30px, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.4px 1.4px at 310px 190px, rgba(255,255,255,.7), transparent);
   background-repeat: repeat;
-  background-size: 380px 300px;
-  opacity: .8;
+  background-size: 280px 220px;
+  opacity: .95;
 }
 .starfield::after {
-  background-size: 500px 420px;
+  background-image:
+    radial-gradient(1.4px 1.4px at 50px 80px, rgba(255,255,255,.75), transparent),
+    radial-gradient(1.6px 1.6px at 180px 40px, rgba(252,61,33,.65), transparent),
+    radial-gradient(1.2px 1.2px at 260px 200px, rgba(143,199,255,.7), transparent),
+    radial-gradient(1.6px 1.6px at 340px 100px, rgba(253,184,19,.65), transparent),
+    radial-gradient(1.2px 1.2px at 90px 260px, rgba(190,160,255,.65), transparent),
+    radial-gradient(1.4px 1.4px at 400px 300px, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.3px 1.3px at 150px 350px, rgba(143,199,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 20px 380px, rgba(253,184,19,.55), transparent),
+    radial-gradient(1.3px 1.3px at 450px 60px, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.4px 1.4px at 230px 300px, rgba(252,61,33,.55), transparent);
+  background-size: 480px 400px;
   background-position: 60px 90px;
+  opacity: .65;
+}
+
+/* ---------- background planets ---------- */
+.bg-planets {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.planet {
+  position: absolute;
+  opacity: .4;
+}
+
+.planet.jupiter {
+  width: 110px;
+  top: 10%;
+  right: 6%;
+}
+
+.planet.saturn {
+  width: 150px;
+  bottom: 12%;
+  right: -2%;
+  opacity: .3;
+}
+
+.planet.mercury {
+  width: 46px;
+  top: 62%;
+  left: 5%;
   opacity: .45;
+}
+
+@media (max-width: 860px) {
+  .planet.jupiter { width: 70px; top: 4%; right: 3%; }
+  .planet.saturn { width: 100px; bottom: 6%; right: -4%; }
+  .planet.mercury { width: 34px; top: 55%; left: 3%; }
 }
 
 /* ---------- layout shell ---------- */
@@ -627,6 +687,54 @@ footer {
 <body>
 
 <div class="starfield" aria-hidden="true"></div>
+
+<div class="bg-planets" aria-hidden="true">
+  <svg class="planet jupiter" viewBox="0 0 100 100">
+    <defs>
+      <radialGradient id="jupiterBody" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#f3d9b1"/>
+        <stop offset="55%" stop-color="#d9a066"/>
+        <stop offset="100%" stop-color="#a9713f"/>
+      </radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="46" fill="url(#jupiterBody)"/>
+    <path d="M6 34 A46 46 0 0 0 6 66 Z" fill="#0000" />
+    <ellipse cx="50" cy="26" rx="46" ry="7" fill="#c98a52" opacity=".55"/>
+    <ellipse cx="50" cy="40" rx="46" ry="5" fill="#e9c491" opacity=".5"/>
+    <ellipse cx="50" cy="52" rx="46" ry="6" fill="#b97a45" opacity=".55"/>
+    <ellipse cx="50" cy="66" rx="46" ry="5" fill="#e2b884" opacity=".5"/>
+    <ellipse cx="50" cy="78" rx="46" ry="6" fill="#c98a52" opacity=".5"/>
+    <ellipse cx="62" cy="58" rx="10" ry="6" fill="#b6512f" opacity=".8"/>
+  </svg>
+
+  <svg class="planet saturn" viewBox="0 0 140 100">
+    <defs>
+      <radialGradient id="saturnBody" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#f5e6c8"/>
+        <stop offset="60%" stop-color="#dcc190"/>
+        <stop offset="100%" stop-color="#b0925f"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="70" cy="50" rx="66" ry="20" fill="none" stroke="#8ea9d9" stroke-width="4" opacity=".6"/>
+    <ellipse cx="70" cy="50" rx="66" ry="20" fill="none" stroke="#3d5fd9" stroke-width="1.5" opacity=".5"/>
+    <circle cx="70" cy="50" r="34" fill="url(#saturnBody)"/>
+  </svg>
+
+  <svg class="planet mercury" viewBox="0 0 60 60">
+    <defs>
+      <radialGradient id="mercuryBody" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#d8d3ce"/>
+        <stop offset="60%" stop-color="#a6a09a"/>
+        <stop offset="100%" stop-color="#726c67"/>
+      </radialGradient>
+    </defs>
+    <circle cx="30" cy="30" r="27" fill="url(#mercuryBody)"/>
+    <circle cx="20" cy="22" r="4.5" fill="#8a8480" opacity=".7"/>
+    <circle cx="36" cy="18" r="3" fill="#8a8480" opacity=".6"/>
+    <circle cx="38" cy="38" r="6" fill="#8a8480" opacity=".65"/>
+    <circle cx="18" cy="40" r="3.2" fill="#8a8480" opacity=".55"/>
+  </svg>
+</div>
 
 <header class="site-header">
   <a href="index.html" class="brand">
