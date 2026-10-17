@@ -603,6 +603,42 @@ footer {
   letter-spacing: .02em;
 }
 
+.report-box {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, rgba(11,61,145,.55), rgba(252,61,33,.25));
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  padding: 26px 28px;
+  text-decoration: none;
+  color: var(--white);
+  transition: border-color .2s, transform .2s;
+}
+.report-box:hover { border-color: var(--red); transform: translateY(-4px); }
+.report-box .badge {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff4d6, #fdb813 40%, #ff6b35 75%, #fc3d21);
+  box-shadow: 0 0 24px rgba(253,184,19,.45);
+}
+.report-box .kind {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  color: var(--gold);
+}
+.report-box h3 { font-family: var(--font-display); font-size: 1.25rem; margin: 4px 0 6px; }
+.report-box p { color: var(--muted); font-size: .9rem; margin: 0; }
+.report-box .arrow { margin-left: auto; font-size: 1.4rem; color: var(--red); }
+@media (max-width: 720px) {
+  .report-box { flex-direction: column; align-items: flex-start; }
+  .report-box .arrow { margin-left: 0; }
+}
+
 @media (max-width: 720px) {
   .column-grid { grid-template-columns: 1fr; }
 }
@@ -756,6 +792,16 @@ footer {
 </div>
 
 <div class="column-grid">
+
+  <a href="report1.html" class="report-box">
+    <div class="badge" aria-hidden="true"></div>
+    <div>
+      <span class="kind">SPECIAL REPORT</span>
+      <h3>宇宙に関する人物図鑑</h3>
+      <p>宇宙の歴史をつくってきた人々を、図鑑形式で紹介します。</p>
+    </div>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
 
   <a href="#" class="column-card">
     <div class="thumb">4-KOMA</div>
